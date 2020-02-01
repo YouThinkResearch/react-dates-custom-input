@@ -10,6 +10,37 @@
 
 > An easily internationalizable, accessible, mobile-friendly datepicker library for the web.
 
+I was very frustrated that such a popular library doesn't allow set a custom component, so I came up with this solution.
+
+It's exactly the same `react-dates`, but with the custom component support in the mix and typings out of the box. That's how you can use it:
+
+```js
+import React, { useState } from 'react'
+import TextInput from '@ui/text-input'
+import { SingleDatePicker } from 'react-dates-custom-input'
+
+const render = () => {
+  const [currentDate, setCurrentDate] = useState(null)
+  const [isFocused, setFocused] = useState(false)
+
+  return (
+    <SingleDatePicker 
+      date={currentDate} 
+      onDateChange={newDate => setCurrentDate(newDate)}
+      id='date'
+      focused={isFocused}
+      onFocusChange={({ focused }) => setFocused(focused)}
+      inputRenderer={({ initInput, ...inputProps }) => (
+        <TextInput
+          ref={initInput}
+          {...inputProps}
+        />
+      )}
+    />
+  )
+}
+```
+
 ![react-dates in action](https://raw.githubusercontent.com/airbnb/react-dates/master/react-dates-demo.gif)
 
 ## Live Playground
